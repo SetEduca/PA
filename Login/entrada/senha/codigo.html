@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SetEduca</title>
+    <link rel="stylesheet" href="codigo.css">
+</head>
+<body id="cadas">
+    <div class="caixa4">
+        <p id="troca" style="font-family:'Allerta';">Quer trocar sua senha?</p>
+        <p id="codigo" style="font-family:'Allerta';">Insira no campo abaixo o código de verificação de 5 dígitos enviado para o seu e-mail.</p>
+
+        <form action="senha.html"> 
+            <div class="codigo-container">
+                <input type="text" maxlength="1" class="codigo-input" oninput="mudarFoco(this, 1)">
+                <input type="text" maxlength="1" class="codigo-input" oninput="mudarFoco(this, 2)">
+                <input type="text" maxlength="1" class="codigo-input" oninput="mudarFoco(this, 3)">
+                <input type="text" maxlength="1" class="codigo-input" oninput="mudarFoco(this, 4)">
+                <input type="text" maxlength="1" class="codigo-input" oninput="mudarFoco(this, 5)">
+            </div>
+
+            <input id="enviar4" type="submit" value="Enviar">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const inputs = document.querySelectorAll(".codigo-input");
+        
+            inputs.forEach((input, index) => {
+                input.addEventListener("input", (e) => {
+                    const value = e.target.value;
+        
+                   
+                    if (value && index < inputs.length - 1) {
+                        inputs[index + 1].focus();
+                    }
+                });
+        
+                input.addEventListener("keydown", (e) => {
+                    
+                    if (e.key === "Backspace" && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+        });
+        </script>
+        
+</body>
+</html>
+

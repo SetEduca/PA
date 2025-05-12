@@ -1,0 +1,145 @@
+.caixa {
+    width: 200%; 
+    max-width: 1000px; 
+    height: 500px; 
+    background-color: #fff4df; 
+    border-radius: 20px; 
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
+    padding: 20px; 
+    text-align: left; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-bottom: 5px solid #D22A2A; 
+}
+
+.link-cadastrar {
+    display: flex;              
+    justify-content: center;     
+    align-items: center;         
+    width: 200px;               
+    height: 50px;               
+    padding: 10px;              
+    background-color: #D22A2A;
+    color: rgb(0, 0, 0);
+    text-align: center;         
+    text-decoration: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    border: 2px solid #000000;
+    position: absolute;
+    right: 20px;
+    top: 480px;
+    box-sizing: border-box;      
+}
+
+.link-cadastrar:hover {
+    background-color: #971d1d;
+}
+
+#professor {
+    width: 70%; 
+    border-radius: 20px;
+}
+
+#turma {
+    width: 70%; 
+    border-radius: 20px;
+}
+
+#turno {
+    width: 30%; 
+    border-radius: 20px;
+}
+
+#quantidade_alunos {
+    width: 20%; 
+    border-radius: 20px;
+}
+
+#faixa_etaria {
+    width: 30%;
+    border-radius: 20px; 
+}
+
+#cad{
+    position: absolute; 
+    top: 6px;  
+    left: 67px; 
+}
+
+#cadastro{
+    position: absolute;
+    top: 14px; 
+    left: 110px; 
+    white-space: nowrap;
+}
+
+#seta {
+    position: absolute; 
+    top: 6px;  
+    left: 10px; 
+}#cadas {
+    background-color: #fff4df;
+}
+
+body {
+    background-color: #fff4df;
+    font-family: 'Kodchasan';
+}
+
+header {
+    text-align: center;
+    background-color: #D22A2A;
+    border-radius: 0px 0px 40px 40px;
+    height: 50px;
+    position: relative; 
+}
+
+h1 {
+    text-align: center;
+    margin: -10px 0 0 0; 
+    position:relative;
+    bottom: 1vh;
+}
+
+.botao-imagem {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.botao-imagem:hover img {
+    transform: scale(1.1);
+}
+
+img{
+    position: relative;
+    right: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select {
+    padding: 10px;
+    border: 2px solid #000000;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

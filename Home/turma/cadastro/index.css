@@ -1,0 +1,117 @@
+#cadas {
+    background-color: #fff4df;
+}
+
+body {
+    background-color: #fff4df;
+    font-family: 'Kodchasan';
+}
+
+header {
+    text-align: center;
+    background-color: #D22A2A;
+    border-radius: 0px 0px 40px 40px;
+    height: 50px;
+    position: relative; 
+}
+
+h1 {
+    text-align: center;
+    margin: -10px 0 0 0; 
+    position:relative;
+    bottom: 1vh;
+}
+
+.botao-imagem {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.botao-imagem:hover img {
+    transform: scale(1.1);
+}
+
+img{
+    position: relative;
+    right: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input, select {
+    padding: 10px;
+    border: 2px solid #000000;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}#logo {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+
+#menu{
+    position: absolute;
+    top: 5px;
+    left: 10px;
+}
+
+#botoes{
+    border: none;
+    color: none;
+    transition: none;
+    background-color: none;
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 300px;
+}
+
+.container {
+    display: flex;
+}
+
+#link1, #link2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: larger;
+    font-size: 24px;
+}
+
+a {
+    color: #000000;
+    width: 400px;
+    height: 100px;
+    background-color: #D22A2A;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+    border-radius: 10px;
+    transition: 0.3s;
+    padding: 10px;
+    border: 2px solid #000000;
+}#seta {
+    position: absolute; 
+    top: 6px;  
+    left: 10px; 
+}

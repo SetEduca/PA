@@ -1,0 +1,111 @@
+
+header {
+    text-align: center;
+    background-color: #D22A2A;
+    border-radius: 0px 0px 40px 40px;
+    height: 50px;
+    position: relative; 
+}
+
+#cadastro {
+    position: absolute;
+    top: 10px; 
+    left: 110px; 
+    white-space: nowrap;
+    color: rgb(0, 0, 0);
+    margin: 0;
+}
+
+#cad {
+    position: absolute; 
+    top: 10px;  
+    left: 67px; 
+}
+
+#seta {
+    position: absolute; 
+    top: 6px;  
+    left: 10px; 
+}
+
+.botao-imagem {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.botao-imagem:hover img {
+    transform: scale(1.1);
+}
+
+
+#cadas {
+    background-color: #fff4df;
+    padding-bottom: 30px;
+}
+
+.turmas-container {
+    max-width: 800px;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.turma-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.turma-header {
+    background-color: #D22A2A;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.turma-header:hover {
+    background-color: #971d1d;
+}
+
+.turma-header h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.toggle-icon {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.turma-content {
+    padding: 20px;
+    display: none;
+    border: 1px solid #eee;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+}
+
+.turma-content p {
+    margin: 10px 0;
+    color: #333;
+}
+
+.delete-btn {
+    text-align: right;
+    margin-top: 15px;
+}
+
+#lixo {
+    transition: transform 0.2s;
+}
+
+#lixo:hover {
+    transform: scale(1.1);
+}
