@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Konkhmer+Sleokchher&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kodchasan:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Konkhmer+Sleokchher&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Allerta&family=Kodchasan&display=swap');
+
+body {
+    background-color: #FFF4DF;
+}
+
+img {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 18%;
+    transform: translate(-50%, -50%);
+}
+
+h1 {
+    margin: 0;
+    position: absolute;
+    font-family: 'Konkhmer Sleokchher', sans-serif;
+    color: black;
+    top: 9%;
+    left: 50%;
+    font-size: 350%;
+    font-weight: 400; /* Corrigido */
+}
+
+h2 {
+    margin: 0;
+    position: absolute;
+    font-family: 'Kodchasan', sans-serif;
+    color: rgb(0, 0, 0);
+    top: 23%;
+    left: 50%;
+    font-size: 150%;
+    width: 30%;
+    font-weight: 400;
+}
+
+form {
+    margin: 0;
+    position: absolute;
+    top: 36%;
+    left: 50%;
+}
+
+input {
+    width: 500px;
+    height: 70px;
+    border-radius: 15px;
+    font-size: 140%;
+    background-color: #FFF4DF;
+    color: #000000;
+}
+
+.label, .labe {
+    font-size: 120%;
+    position: absolute;
+    font-family: 'Allerta', sans-serif;
+    color: #838181;
+}
+
+.label {
+    top: -4%;
+    left: 2.5%;
+}
+
+.labe {
+    top: 53%;
+    left: 2.5%;
+}
+
+::placeholder {
+    color: rgb(59, 59, 59);
+    font-size: 70%;
+    font-family: 'Allerta', sans-serif;
+    padding: 30px;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 100%;
+    left: 2.5%;
+}
+
+#forml {
+    font-size: 90%;
+    position: absolute;
+    top: 100%;
+    left: 8%;
+    font-family: 'Allerta', sans-serif;
+}
+
+#Es {
+    font-size: 95%;
+    position: absolute;
+    top: 99%; 
+    left: 67%;
+    font-family: 'Allerta', sans-serif;
+    color: #00A6FF;
+    text-decoration: none; /
+}
+
+#Es:hover {
+    text-decoration: underline; 
+}
+#sub {
+    position: absolute;
+    top: 132%;
+    left: 19%;
+    height: 20%;
+    width: 60%;
+    border-radius: 30px;
+    font-size: 100%;
+    font-family: 'Allerta', sans-serif;
+}
+
+button {
+    color: #000000;
+    background-color: #FFFFFF;
+    font-family: 'Allerta', sans-serif;
+}
