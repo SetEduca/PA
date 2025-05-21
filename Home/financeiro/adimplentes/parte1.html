@@ -46,10 +46,12 @@ body{
 }
 
 #logo{
-    float: right;
-    position: relative;
-    top: -10px;
-    height: 50px;
+    
+    position: absolute;
+   height: auto;
+   width: 140px;
+   right: 3vh;
+
 }
 header{
     position: relative;
@@ -60,26 +62,37 @@ h2{
     padding: 15px;
     border-radius: 0px 0px 40px 40px;
 }
+#pago{
+    background-color: #c4ebb5 ;
+    padding: 5px;
+    text-align: center;
+    width: 150px;
+    height: 38px;
+    margin-left: 30px;
+
+}
 </style>
 
-<img id="logo" src="/imagem/logo.png" alt="">
-<br>
-<header>
+
+<img id="logo" src="/imagem/logocomp.png" alt="">
+<br><br>
     
-        <h2>Adimplentes e Inadimplentes</h2>
-        <br>
-        <label for="cars">Choose a car:</label>
+<header>
 
-        <select name="cars" id="cars">
-          <option value="volvo">Volvo</option>
-          <option value="saab">Saab</option>
-          <option value="mercedes">Mercedes</option>
-          <option value="audi">Audi</option>
-        </select>
-     <br>
-     <br>
-     <br>
+    <h2>Adimplentes e Inadimplentes</h2>
+    <br>
+    <label for="pago"></label>
 
+    <select name="pago" id="pago">
+      <option value="inadim">Todos</option>
+      <option value="adimp">Adimplentes</option>
+      <option value="todos">Inadimplentes</option>
+      
+    </select>
+ <br>
+ <br>
+ 
+</header>
 <body>
     
     <table>
