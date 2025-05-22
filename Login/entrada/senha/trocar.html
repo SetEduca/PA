@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SetEduca - Trocar Senha</title>
+    <title>Seteeduca - Trocar Senha</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allerta&family=Kodchasan:wght@400;500;700&display=swap" rel="stylesheet">
@@ -26,16 +26,19 @@
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
             padding: 40px;
             border: 2px solid #000000;
-            text-align: center;
-            margin: 20px auto;
             border-radius: 10px;
-            box-sizing: border-box; /* Adicionado para incluir padding na largura */
+            box-sizing: border-box;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            text-align: center;
         }
 
         #troca {
             font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 40px;
             color: #000000;
             font-family: 'Allerta', sans-serif;
             font-weight: normal;
@@ -47,8 +50,6 @@
             align-items: flex-start;
             width: 100%;
             max-width: 500px;
-            margin: 0 auto 30px;
-            box-sizing: border-box; /* Adicionado */
         }
 
         #pp {
@@ -59,13 +60,13 @@
         }
 
         #email {
-            width: calc(100% - 40px); /* Ajuste para considerar o padding */
+            width: 100%;
             padding: 15px 20px;
             border-radius: 20px;
             border: 2px solid #838181;
             font-size: 1.1rem;
             font-family: 'Kodchasan', sans-serif;
-            box-sizing: border-box; /* Adicionado */
+            box-sizing: border-box;
         }
 
         #email:focus {
@@ -76,11 +77,8 @@
         #clicar {
             color: #000000;
             font-size: 1.1rem;
-            margin: 30px auto;
             max-width: 500px;
             font-family: 'Allerta', sans-serif;
-            padding: 0 20px; /* Adicionado */
-            box-sizing: border-box;
         }
 
         #enviar {
@@ -94,7 +92,6 @@
             font-size: 1.1rem;
             cursor: pointer;
             transition: all 0.3s;
-            margin-top: 20px;
         }
 
         #enviar:hover {
@@ -108,9 +105,7 @@
             margin-top: 5px;
             display: none;
             text-align: left;
-            width: 100%; /* Adicionado */
-            box-sizing: border-box;
-            padding: 0 5px; /* Adicionado */
+            width: 100%;
         }
 
         /* Estilo do Modal */
@@ -149,8 +144,6 @@
             font-size: 1.2rem;
             margin-bottom: 25px;
             color: #333;
-            padding: 0 10px;
-            box-sizing: border-box;
         }
 
         .modal-button {
@@ -177,19 +170,15 @@
             
             #troca {
                 font-size: 1.8rem;
-                margin-bottom: 30px;
-                padding: 0 10px;
             }
             
             #email {
                 font-size: 1rem;
                 padding: 12px 15px;
-                width: calc(100% - 30px); /* Ajuste para mobile */
             }
             
             #clicar {
                 font-size: 1rem;
-                padding: 0 10px;
             }
 
             .modal-content {
@@ -204,7 +193,6 @@
             
             #pp {
                 font-size: 1rem;
-                padding: 0 5px;
             }
             
             #enviar {
@@ -261,7 +249,6 @@
             } else {
                 emailError.style.display = 'none';
                 
-                // Mostra o modal de confirmação
                 const modal = document.getElementById('confirmationModal');
                 const modalMessage = document.getElementById('modalMessage');
                 
@@ -277,17 +264,15 @@
             }
         });
 
-        // Configura o botão Ok do modal para redirecionar
         document.getElementById('modalOkButton').addEventListener('click', function() {
-            window.location.href = "codigo.html"; // Altere para o caminho correto da sua página de código
+            window.location.href = "codigo.html"; 
         });
 
-        // Fecha o modal se clicar fora
         window.addEventListener('click', function(event) {
             const modal = document.getElementById('confirmationModal');
             if (event.target === modal) {
                 modal.style.display = 'none';
-                window.location.href = "codigo.html"; // Redireciona mesmo clicando fora
+                window.location.href = "codigo.html"; 
             }
         });
     </script>
