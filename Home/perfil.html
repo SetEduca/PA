@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Perfil - Seteeduca</title>
+  <link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="header">Meu perfil</div>
+    <div class="profile-container">
+      <div class="profile-pic" id="profilePreview">
+        <img src="imagens/f918bc7ddb4658dcf4ce70a21b3fd31d.jpg" alt="Foto de perfil" id="profileImage">
+        <label class="camera-icon" for="uploadPhoto">&#128247;</label>
+        <input type="file" id="uploadPhoto" accept="image/*">
+      </div>
+      <div id="caixa">
+      <div class="field">
+        <span class="label">Nome:</span>
+        <input class="value" id="nome" type="text" value="Nome">
+      </div>
+      
+      <div class="field">
+        <span class="label">Email:</span>
+        <input class="value" id="email" type="email" value="@gmail.com">
+      </div>
+      
+      <div class="field">
+        <span class="label">Senha:</span>
+        <input class="value" id="senha1" type="password" value="********">
+      </div>
+      
+      <button class="change-password" onclick="alterarSenha()">Salvar Alterações</button>
+    </div>
+  </div>
+</div>
+  <div class="logo-area">
+    <img src="imagens/WhatsApp Image 2025-05-16 at 22.58.17.jpeg" alt="Seteeduca Logo">
+  
+</div>
+  <script src="perfil.js"></script>
+</body>
+</html>
