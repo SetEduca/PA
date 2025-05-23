@@ -19,25 +19,40 @@
     }
 
     header {
-            color: #fff4df;
+      color: #fff4df;
     }
 
-
+     .seta-icon {
+      width: 45px; 
+      height: 45px; 
+      border: none; 
+      background: none; 
+      cursor: pointer;
+      padding: 5px; 
+      border-radius: 50%;
+      position: absolute; 
+      left: 20px; 
+      top: 4%; 
+      transform: translateY(-50%);
+      transition: all 0.3s;
+    }
+    
+    .seta-icon:hover { 
+      color: none;
+    }
+    
+    .seta-icon:hover img { 
+      transform: scale(1.1); 
+    }
     nav{
-            margin-top: 50px;
-            background-color: #59C631;
-            border-radius: 0px 0px 40px 40px;
-            height: 60px;
-            margin-top: -5px;
+      margin-top: 50px;
+      background-color: #59C631;
+      border-radius: 0px 0px 40px 40px;
+      height: 60px;
+      margin-top: -5px;
+      
     }
 
-
-    nav h1 {
-            color: black;
-            text-align: center;
-            font-size: 20px;
-            margin-left: 1000px;
-    }
 
     header nav, header #nav2 {
       display: flex;
@@ -47,8 +62,16 @@
       margin-bottom: 20px;
     }
 
-    header h1, header h2 { margin: 10px; }
-    #logo { max-width: 100px; height: auto; }
+    header h1, header h2 {
+      margin: 10px; }
+      
+    #logo { 
+      width: 90px; 
+      height: auto; 
+      max-width: 100%; 
+      position: relative; 
+      top: -15px; 
+    } 
 
     .quadrado {
       display: flex;
@@ -119,14 +142,14 @@
     }
 
     .botao-relatorio, .botao-historico {
-      padding: 10px 30px;
-      background-color: #59C631;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      align-self: center;
-      width: 200px;
+    padding: 10px 30px;
+    background-color: #59C631;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+    width: 200px;
     }
 
     @media (max-width: 768px) {
@@ -153,11 +176,14 @@
 </head>
 <body>
 
-  <img id="logo" src="imagens/logo.png" alt="Logo da instituição" style="margin-left: 1200px; width: 90px;"/>
+  <img id="logo" src="imagens/logo.png" alt="Logo da instituição" style="margin-left: 1200px;"/>
   <header>
-    <nav>
+  <nav id="h1">
       <h1 style="color: black; margin-left: 530px; text-align: center;">RELATÓRIO FINANCEIRO</h1>
-    </nav> <br> <br>
+      <a class="botao-imagem seta-icon" href="bot.html">
+      <img src="imagens/seta2.svg" alt="Voltar" />
+    </a>
+  </nav> <br> <br>
 
     <p style="background-color: #59C631; color: white; padding: 5px; text-align: center;">RELATÓRIO DE MENSALIDADE</p>
 
@@ -256,10 +282,16 @@
   <div id="resul" class="resul" style="display:none; color: black;"></div>
 
 
-  <div class="botoes">
-    <button class="botao-relatorio" type="button" style="width: 400px; onclick="window.location.href='fluxo de caixa.html'>FLUXO DE CAIXA</button>
+ <div class="botoes">
+    <button class="botao-relatorio" type="button" style="width: 400px;" id="fluxoCaixaBtn">FLUXO DE CAIXA</button>
     <button class="botao-historico" type="button">HISTÓRICO DE MOVIMENTAÇÃO NO ASAS</button>
-  </div>
+</div>
+
+<script>
+document.getElementById('fluxoCaixaBtn').addEventListener('click', function() {
+    window.location.href = 'Fluxo.html';
+});
+</script>
 
 
   <script>

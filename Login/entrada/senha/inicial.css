@@ -42,24 +42,11 @@ background-color: rgb(255, 255, 255);
  
  
 #seta {
-    position: fixed ;
-    top: 94.5vh ;
-    left: 74.5vw ;
-    margin: 0 ;
-    transform: translate(1000%, -50%) ;
-}
+    position: fixed; 
+    top: 94.5%; 
+    left: 96%;
+     margin-right: -50%; 
 
 
-@media (max-width: 400px) {
-    #seta {
-        top: 90vh ;
-        left: 70vw t;
-    }
 }
 
-@media (max-width: 480px) {
-    #seta {
-        top: 85vh ;
-        left: 65vw ;
-    }
-}
