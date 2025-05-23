@@ -1,0 +1,65 @@
+  
+body{
+    background-color: #F3E38A;
+}
+
+img {
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+    
+ }
+
+ #sete{
+
+    margin: 0;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+    
+    
+ }
+
+ button{
+background-color: rgb(255, 255, 255);
+    margin: 0;
+    position: absolute;
+    top: 92%;
+    left: 91%;
+    margin-right: -50%;
+    transform: translate(1000%, -50%);
+    width: 100px;
+    height: 35px;
+ 
+
+    
+ }
+ 
+ 
+#seta {
+    position: fixed ;
+    top: 94.5vh ;
+    left: 74.5vw ;
+    margin: 0 ;
+    transform: translate(1000%, -50%) ;
+}
+
+
+@media (max-width: 400px) {
+    #seta {
+        top: 90vh ;
+        left: 70vw t;
+    }
+}
+
+@media (max-width: 480px) {
+    #seta {
+        top: 85vh ;
+        left: 65vw ;
+    }
+}
