@@ -130,15 +130,16 @@
     left: -30px;
     }
 
-    .botao-relatorio, .botao-historico {
+    .botao-historico {
     padding: 10px 30px;
     background-color: #59C631;
-    color: white;
+    color: rgb(0, 0, 0);
     border: none;
     border-radius: 5px;
     cursor: pointer;
     align-self: center;
-    width: 200px;
+    width: 300px;
+    height: 100px;
     }
 
     @media (max-width: 768px) {
@@ -273,8 +274,7 @@
 
 
  <div class="botoes">
-    <button class="botao-relatorio" type="button" style="width: 300px; height: 65px;" id="fluxoCaixaBtn">FLUXO DE CAIXA</button>
-    <button class="botao-historico" type="button">HISTÓRICO DE MOVIMENTAÇÃO NO ASAS</button>
+    <button class="botao-historico" type="button">HISTÓRICO DE MOVIMENTAÇÃO COMPLETO NO ASAS</button>
 </div>
 
 <script>
@@ -407,3 +407,4 @@ document.getElementById('fluxoCaixaBtn').addEventListener('click', function() {
 
 </body>
 </html>
+
