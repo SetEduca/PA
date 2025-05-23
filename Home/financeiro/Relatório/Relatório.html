@@ -21,29 +21,7 @@
     header {
       color: #fff4df;
     }
-
-     .seta-icon {
-      width: 45px; 
-      height: 45px; 
-      border: none; 
-      background: none; 
-      cursor: pointer;
-      padding: 5px; 
-      border-radius: 50%;
-      position: absolute; 
-      left: 20px; 
-      top: 4%; 
-      transform: translateY(-50%);
-      transition: all 0.3s;
-    }
     
-    .seta-icon:hover { 
-      color: none;
-    }
-    
-    .seta-icon:hover img { 
-      transform: scale(1.1); 
-    }
     nav{
       margin-top: 50px;
       background-color: #59C631;
@@ -77,11 +55,11 @@
       margin: 10px; }
       
     #logo { 
-      width: 90px; 
+      position: absolute;
+      width: 60px; 
       height: auto; 
-      max-width: 100%; 
-      position: relative; 
-      top: -15px; 
+      right: 3vh; 
+      top: 12px; 
     } 
 
     .quadrado {
@@ -187,7 +165,7 @@
 </head>
 <body>
 
-  <img id="logo" src="imagens/logo.png" alt="Logo da instituição" style="margin-left: 1200px;"/>
+  <img id="logo" src="imagens/logo2.png" alt="Logo da instituição" style="margin-left: 1200px;"/>
   <header>
   <nav id="h1">
   
@@ -273,7 +251,7 @@
       <input id="relato" type="text" placeholder="Informe o relatório" aria-label="Relatório diário" style="width: 400px; height: 40px;" />
     </div>
     <div>
-      <button id="Enviar" type="button" style="width: 500px; margin-left: -80px; height: 40px; margin-top: 10px;">Enviar</button>
+      <button id="Enviar" type="button" style="width: 250px; margin-left: -80px; height: 40px; margin-top: 4%;">Enviar</button>
     </div>
   </div>
 
@@ -295,13 +273,13 @@
 
 
  <div class="botoes">
-    <button class="botao-relatorio" type="button" style="width: 400px;" id="fluxoCaixaBtn">FLUXO DE CAIXA</button>
+    <button class="botao-relatorio" type="button" style="width: 300px; height: 65px;" id="fluxoCaixaBtn">FLUXO DE CAIXA</button>
     <button class="botao-historico" type="button">HISTÓRICO DE MOVIMENTAÇÃO NO ASAS</button>
 </div>
 
 <script>
 document.getElementById('fluxoCaixaBtn').addEventListener('click', function() {
-    window.location.href = 'Fluxo.html';
+    window.location.href = 'Fluxo de caixa.html';
 });
 </script>
 
