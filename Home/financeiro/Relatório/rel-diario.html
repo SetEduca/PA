@@ -392,6 +392,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+            position: relative;
         }
 
         .report-item:hover {
@@ -490,6 +491,127 @@
             }
         }
 
+        /* Botão de edição */
+        .edit-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .report-item:hover .edit-btn {
+            opacity: 1;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-20px);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .modal-close:hover {
+            color: #333;
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .modal-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+
+        .error-message {
+            color: #f44336;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
        
         @media (min-width: 768px) {
             .form-group {
@@ -539,6 +661,11 @@
             }
             
             .main-content {
+                padding: 15px;
+            }
+
+            .modal {
+                width: 95%;
                 padding: 15px;
             }
         }
@@ -650,19 +777,19 @@
             <div class="totals-container" id="totalsContainer">
                 <div class="total-card total-recebido">
                     <div class="total-label">Total Recebido</div>
-                    <div class="total-value">R$ 900,00</div>
+                    <div class="total-value" id="totalRecebido">R$ 0,00</div>
                 </div>
                 <div class="total-card total-pendente">
                     <div class="total-label">Total Pendente</div>
-                    <div class="total-value">R$ 900,00</div>
+                    <div class="total-value" id="totalPendente">R$ 0,00</div>
                 </div>
                 <div class="total-card total-geral">
                     <div class="total-label">Total Geral</div>
-                    <div class="total-value">R$ 1800,00</div>
+                    <div class="total-value" id="totalGeral">R$ 0,00</div>
                 </div>
             </div>
 
-            <button class="history-btn">
+            <button class="history-btn" onclick="showAllReports()">
                 <i class="fas fa-history"></i> HISTÓRICO DE MOVIMENTAÇÃO<br>
                 COMPLETO (ASAS)
             </button>
@@ -671,60 +798,131 @@
         <!-- Navegação em meia lua -->
         <div class="half-moon-nav">
             <div class="nav-item active">Início</div>
-            <div class="nav-item">Relatórios</div>
+            <div class="nav-item" onclick="showAllReports()">Relatórios</div>
             <div class="nav-item">Configurações</div>
+        </div>
+
+        <!-- Modal de autenticação -->
+        <div class="modal-overlay" id="authModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">Autenticação de Administrador</h3>
+                    <button class="modal-close" onclick="closeAuthModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>Para editar relatórios, é necessário autenticação de administrador.</p>
+                    <input type="password" class="modal-input" id="adminPassword" placeholder="Digite a senha de administrador">
+                    <div class="error-message" id="passwordError">Senha incorreta. Tente novamente.</div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-cancel" onclick="closeAuthModal()">Cancelar</button>
+                    <button class="btn btn-add" onclick="verifyAdminPassword()">Verificar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal de edição -->
+        <div class="modal-overlay" id="editModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 class="modal-title">Editar Relatório</h3>
+                    <button class="modal-close" onclick="closeEditModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form id="editForm">
+                        <input type="hidden" id="editId">
+                        <div class="form-group">
+                            <label for="editDate">Data</label>
+                            <input type="text" id="editDate" class="modal-input" placeholder="dd/mm/aaaa" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editDescription">Descrição</label>
+                            <input type="text" id="editDescription" class="modal-input" placeholder="Descreva a despesa" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editValue">Valor (R$)</label>
+                            <input type="text" id="editValue" class="modal-input" placeholder="R$0,00" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-cancel" onclick="closeEditModal()">Cancelar</button>
+                    <button class="btn btn-add" onclick="saveEditedReport()">Salvar Alterações</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-       
-        let savedReports = [
-            {
-                id: 1,
-                date: "20/08/2025",
-                description: "Compra de material escolar",
-                value: "R$ 150,00",
-                type: "Relatório Diário",
-                timestamp: new Date('2025-08-20').toISOString()
-            },
-            {
-                id: 2,
-                date: "19/08/2025",
-                description: "Pagamento de energia elétrica",
-                value: "R$ 280,50",
-                type: "Relatório Mensal",
-                timestamp: new Date('2025-08-19').toISOString()
-            },
-            {
-                id: 3,
-                date: "18/08/2025",
-                description: "Compra de equipamentos",
-                value: "R$ 520,75",
-                type: "Relatório Diário",
-                timestamp: new Date('2025-08-18').toISOString()
-            },
-            {
-                id: 4,
-                date: "17/08/2025",
-                description: "Material de limpeza",
-                value: "R$ 85,30",
-                type: "Relatório Diário",
-                timestamp: new Date('2025-08-17').toISOString()
-            },
-            {
-                id: 5,
-                date: "16/08/2025",
-                description: "Mensalidade do software",
-                value: "R$ 199,90",
-                type: "Relatório Mensal",
-                timestamp: new Date('2025-08-16').toISOString()
-            }
-        ];
+        // Chave para armazenamento no localStorage
+        const STORAGE_KEY = 'financialReports';
+        const ADMIN_PASSWORD = "admin123"; // Senha do administrador (em um sistema real, isso deve ser mais seguro)
+        
+        // Carregar relatórios do localStorage ou usar array vazio
+        let savedReports = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+        let currentReportToEdit = null;
+        
+        // Atualizar totais ao carregar a página
+        updateTotals();
 
-       
+        // Função para salvar relatórios no localStorage
+        function saveReportsToStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(savedReports));
+            console.log('💾 Relatórios salvos no localStorage');
+        }
+
+        // Função para atualizar os totais exibidos
+        function updateTotals() {
+            let totalRecebido = 0;
+            let totalPendente = 0;
+            
+            // Calcular totais (exemplo simplificado)
+            // Em um sistema real, você teria lógica para diferenciar recebido vs pendente
+            savedReports.forEach(report => {
+                // Converter valor string para número (remover "R$ ", pontos e vírgula)
+                const valorNumerico = parseFloat(
+                    report.value.replace('R$ ', '')
+                               .replace('.', '')
+                               .replace(',', '.')
+                );
+                
+                // Simulação: 50% recebido, 50% pendente
+                totalRecebido += valorNumerico * 0.5;
+                totalPendente += valorNumerico * 0.5;
+            });
+            
+            const totalGeral = totalRecebido + totalPendente;
+            
+            // Formatar valores para exibição
+            document.getElementById('totalRecebido').textContent = formatCurrency(totalRecebido);
+            document.getElementById('totalPendente').textContent = formatCurrency(totalPendente);
+            document.getElementById('totalGeral').textContent = formatCurrency(totalGeral);
+        }
+
+        // Função para formatar valor como moeda brasileira
+        function formatCurrency(value) {
+            return 'R$ ' + value.toFixed(2).replace('.', ',').replace(/\d(?=(\d{3})+,)/g, '$&.');
+        }
+
+        // Função para mostrar todos os relatórios
+        function showAllReports() {
+            if (savedReports.length === 0) {
+                alert('Não há relatórios cadastrados.');
+                return;
+            }
+            
+            // Usar a função de pesquisa com string vazia para mostrar todos
+            document.getElementById('searchBox').value = '';
+            const results = searchReports('');
+            toggleSearchMode(true);
+            renderSearchResults(results, 'todos os relatórios');
+        }
+
+        // Função para buscar relatórios
         function searchReports(searchTerm) {
             if (!searchTerm || searchTerm.trim() === '') {
-                return [];
+                // Se não há termo de busca, retorna todos os relatórios ordenados por data
+                return [...savedReports].sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
             }
 
             const term = searchTerm.toLowerCase().trim();
@@ -734,12 +932,12 @@
                        report.date.includes(term) ||
                        report.value.toLowerCase().includes(term) ||
                        report.type.toLowerCase().includes(term);
-            }).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)); // Ordenar por data mais recente
+            }).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         }
 
         // Função para destacar texto na pesquisa
         function highlightSearchTerm(text, searchTerm) {
-            if (!searchTerm) return text;
+            if (!searchTerm || searchTerm === 'todos os relatórios') return text;
             
             const regex = new RegExp(`(${searchTerm})`, 'gi');
             return text.replace(regex, '<span class="search-highlight">$1</span>');
@@ -769,6 +967,9 @@
 
             const resultsHTML = results.map(report => `
                 <div class="report-item">
+                    <button class="edit-btn" onclick="openEditReport(${report.id})" title="Editar relatório">
+                        <i class="fas fa-edit"></i>
+                    </button>
                     <div class="report-header">
                         <div class="report-description">
                             ${highlightSearchTerm(report.description, searchTerm)}
@@ -817,37 +1018,36 @@
             }
         }
 
-    
+        // Limpar pesquisa
         function clearSearch() {
             const searchBox = document.getElementById('searchBox');
             searchBox.value = '';
             toggleSearchMode(false);
             searchBox.focus();
-            console.log('🔄 Pesquisa limpa - voltando à visualização normal');
         }
 
-
+        // Adicionar relatório ao array e salvar no localStorage
         function addReportToArray(reportData) {
-            savedReports.unshift(reportData); 
-            console.log(`📊 Relatório #${reportData.id} adicionado ao banco de dados local`);
+            savedReports.unshift(reportData);
+            saveReportsToStorage();
+            updateTotals();
+            console.log(`📊 Relatório #${reportData.id} adicionado e salvo`);
         }
+
+        // Mostrar mensagem de sucesso
         function showSuccessMessage(description, value) {
             const successMsg = document.getElementById('successMessage');
             const messageText = successMsg.querySelector('.text');
             
-           
             const message = `✅ Relatório "${description}" no valor de ${value} foi adicionado com sucesso!`;
             messageText.textContent = message;
             
-           
             successMsg.style.display = 'block';
             successMsg.classList.remove('fade-out');
-            
             
             setTimeout(() => {
                 hideSuccessMessage();
             }, 5000);
-            
             
             window.scrollTo({
                 top: 0,
@@ -855,7 +1055,7 @@
             });
         }
 
-       
+        // Esconder mensagem de sucesso
         function hideSuccessMessage() {
             const successMsg = document.getElementById('successMessage');
             successMsg.classList.add('fade-out');
@@ -865,25 +1065,18 @@
             }, 400);
         }
 
-       
+        // Limpar formulário
         function clearForm() {
             const form = document.getElementById('reportForm');
-            
-      
             form.reset();
-            
-          
             setCurrentDate();
-            
             
             setTimeout(() => {
                 document.getElementById('description').focus();
             }, 100);
-            
-            console.log('✅ Formulário limpo e pronto para novo relatório');
         }
 
-    
+        // Definir data atual no campo de data
         function setCurrentDate() {
             const today = new Date();
             const day = String(today.getDate()).padStart(2, '0');
@@ -892,14 +1085,14 @@
             document.getElementById('date').value = `${day}/${month}/${year}`;
         }
 
+        // Cancelar formulário
         function cancelForm() {
             if (confirm('Tem certeza que deseja cancelar? Todos os dados serão perdidos.')) {
                 clearForm();
-                console.log('❌ Formulário cancelado pelo usuário');
             }
         }
 
-     
+        // Alternar entre abas
         function switchTab(type) {
             const tabs = document.querySelectorAll('.tab');
             tabs.forEach(tab => {
@@ -918,7 +1111,7 @@
             }
         }
 
-        
+        // Mostrar/ocultar loading no botão
         function showButtonLoading(show = true) {
             const btn = document.getElementById('addBtn');
             if (show) {
@@ -930,7 +1123,7 @@
             }
         }
 
-  
+        // Formatar data durante a digitação
         document.getElementById('date').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 2 && value.length <= 4) {
@@ -941,6 +1134,7 @@
             e.target.value = value;
         });
 
+        // Formatar valor durante a digitação
         document.getElementById('value').addEventListener('input', function(e) {
             let value = e.target.value.replace(/[^\d]/g, '');
             if (value === '') {
@@ -948,14 +1142,13 @@
                 return;
             }
             
-          
             value = (parseInt(value) / 100).toFixed(2);
             value = value.replace('.', ',');
             value = value.replace(/\d(?=(\d{3})+,)/g, '$&.');
             e.target.value = 'R$ ' + value;
         });
 
-        
+        // Manipular envio do formulário
         document.getElementById('reportForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
@@ -963,12 +1156,11 @@
             const description = document.getElementById('description').value;
             const value = document.getElementById('value').value;
             
-         
+            // Validação
             if (!date || !description || !value) {
                 alert('Por favor, preencha todos os campos!');
                 return;
             }
-            
 
             if (!/^\d{2}\/\d{2}\/\d{4}$/.test(date)) {
                 alert('Por favor, insira uma data válida no formato dd/mm/aaaa');
@@ -976,11 +1168,9 @@
                 return;
             }
             
-    
             showButtonLoading(true);
            
             setTimeout(() => {
-            
                 const reportData = {
                     id: Date.now(), 
                     date: date,
@@ -990,53 +1180,29 @@
                     type: document.querySelector('.h1').textContent 
                 };
                 
-                
                 addReportToArray(reportData);
-                
-                
                 console.log('📊 Novo relatório criado:', reportData);
                 
-            
-                
-                
                 showButtonLoading(false);
-                
-                
                 showSuccessMessage(description.trim(), value);
-                
-                
                 clearForm();
-                
-                
-                console.log('✅ Relatório salvo e formulário resetado com sucesso!');
                 
             }, 1000); 
         });
 
-        
-        function saveToServer(data) {
-        
-        }
-
-        
+        // Inicialização quando o documento estiver carregado
         document.addEventListener('DOMContentLoaded', function() {
-           
             setCurrentDate();
-            
-            
             document.getElementById('description').focus();
-            
             
             const searchBox = document.getElementById('searchBox');
             let searchTimeout;
 
+            // Configurar pesquisa em tempo real
             searchBox.addEventListener('input', function(e) {
                 const searchTerm = e.target.value.trim();
-                
-                
                 clearTimeout(searchTimeout);
                 
-               
                 searchTimeout = setTimeout(() => {
                     if (searchTerm === '') {
                         toggleSearchMode(false);
@@ -1047,11 +1213,10 @@
                     toggleSearchMode(true);
                     renderSearchResults(results, searchTerm);
                     
-                    console.log(`🔍 Pesquisa: "${searchTerm}" - ${results.length} resultado(s)`);
                 }, 300);
             });
 
- 
+            // Tecla ESC limpa a pesquisa
             searchBox.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     clearSearch();
@@ -1059,32 +1224,32 @@
             });
             
             console.log('📱 Aplicativo iniciado - Formulário pronto para uso');
-            console.log(`💾 ${savedReports.length} relatórios carregados no sistema`);
+            console.log(`💾 ${savedReports.length} relatórios carregados do localStorage`);
         });
 
-     
+        // Navegação
         document.querySelectorAll('.nav-item').forEach((item, index) => {
             item.addEventListener('click', function() {
                 document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
                 this.classList.add('active');
-                
-                console.log(`🔄 Navegando para: ${this.textContent}`);
             });
         });
 
+        // Atalhos de teclado
         document.addEventListener('keydown', function(e) {
-           
+            // Ctrl+Enter envia o formulário
             if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
                 e.preventDefault();
                 document.getElementById('reportForm').dispatchEvent(new Event('submit'));
             }
             
-     
+            // ESC cancela o formulário
             if (e.key === 'Escape') {
                 cancelForm();
             }
         });
 
+        // Efeitos visuais nos inputs
         document.querySelectorAll('input').forEach(input => {
             input.addEventListener('focus', function() {
                 this.style.borderColor = '#4CAF50';
@@ -1095,6 +1260,128 @@
                 this.style.borderColor = '#ddd';
                 this.style.boxShadow = 'none';
             });
+        });
+
+        // Funções para edição de relatórios
+        function openEditReport(reportId) {
+            // Encontrar o relatório pelo ID
+            const report = savedReports.find(r => r.id === reportId);
+            if (!report) {
+                alert('Relatório não encontrado!');
+                return;
+            }
+            
+            currentReportToEdit = report;
+            openAuthModal();
+        }
+
+        function openAuthModal() {
+            document.getElementById('authModal').classList.add('active');
+            document.getElementById('adminPassword').value = '';
+            document.getElementById('passwordError').classList.remove('show');
+            document.getElementById('adminPassword').focus();
+        }
+
+        function closeAuthModal() {
+            document.getElementById('authModal').classList.remove('active');
+            currentReportToEdit = null;
+        }
+
+        function verifyAdminPassword() {
+            const password = document.getElementById('adminPassword').value;
+            const errorElement = document.getElementById('passwordError');
+            
+            if (password === ADMIN_PASSWORD) {
+                errorElement.classList.remove('show');
+                closeAuthModal();
+                openEditModal();
+            } else {
+                errorElement.classList.add('show');
+                document.getElementById('adminPassword').focus();
+            }
+        }
+
+        function openEditModal() {
+            if (!currentReportToEdit) return;
+            
+            // Preencher o formulário de edição com os dados atuais
+            document.getElementById('editId').value = currentReportToEdit.id;
+            document.getElementById('editDate').value = currentReportToEdit.date;
+            document.getElementById('editDescription').value = currentReportToEdit.description;
+            document.getElementById('editValue').value = currentReportToEdit.value;
+            
+            document.getElementById('editModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editModal').classList.remove('active');
+            currentReportToEdit = null;
+        }
+
+        function saveEditedReport() {
+            const id = parseInt(document.getElementById('editId').value);
+            const date = document.getElementById('editDate').value;
+            const description = document.getElementById('editDescription').value;
+            const value = document.getElementById('editValue').value;
+            
+            // Validação
+            if (!date || !description || !value) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+
+            if (!/^\d{2}\/\d{2}\/\d{4}$/.test(date)) {
+                alert('Por favor, insira uma data válida no formato dd/mm/aaaa');
+                document.getElementById('editDate').focus();
+                return;
+            }
+            
+            // Encontrar o índice do relatório no array
+            const reportIndex = savedReports.findIndex(r => r.id === id);
+            if (reportIndex === -1) {
+                alert('Relatório não encontrado!');
+                closeEditModal();
+                return;
+            }
+            
+            // Atualizar o relatório
+            savedReports[reportIndex] = {
+                ...savedReports[reportIndex],
+                date: date,
+                description: description.trim(),
+                value: value,
+                timestamp: new Date().toISOString() // Atualizar timestamp da edição
+            };
+            
+            // Salvar no localStorage
+            saveReportsToStorage();
+            updateTotals();
+            
+            // Atualizar a exibição se estiver em modo de pesquisa
+            const searchTerm = document.getElementById('searchBox').value.trim();
+            if (searchTerm !== '') {
+                const results = searchReports(searchTerm);
+                renderSearchResults(results, searchTerm);
+            }
+            
+            alert('Relatório atualizado com sucesso!');
+            closeEditModal();
+        }
+
+        // Permitir enviar o formulário de autenticação com Enter
+        document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                verifyAdminPassword();
+            }
+        });
+
+        
+        document.getElementById('editForm').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                saveEditedReport();
+            }
         });
     </script>
 </body>
