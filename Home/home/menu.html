@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seteeduca - Sistema de Gerenciamento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+      
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: #FFF4DF;
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        .logo {
+            padding: 25px 20px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo h1 {
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo p {
+            font-size: 14px;
+            opacity: 0.85;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .menu {
+            flex: 1;
+            padding: 0 18px;
+        }
+
+        .menu-item {
+            padding: 16px 20px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            overflow: visible;
+            color: black;
+        }
+
+        .menu-item i {
+            margin-right: 15px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .menu-item span {
+            z-index: 2;
+            font-size: 15px;
+        }
+        .menu-item:hover {
+        background-color: #6c757d21;
+        }
+
+
+        .menu-item::after {
+            padding: 0 18px;
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 20px;
+            height: 2px;
+            width: 0px;
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
+
+        .menu-item:hover::after {
+            width: calc(100% - 40px);
+        }
+
+        .menu-item:nth-child(1)::after { background-color: #F4BF27; }
+        .menu-item:nth-child(2)::after { background-color: #F88C12; }
+        .menu-item:nth-child(3)::after { background-color: #59C631; }
+        .menu-item:nth-child(4)::after { background-color: #D22A2A; }
+        .menu-item:nth-child(5)::after { background-color: #00A6FF; }
+        .menu-item:nth-child(6)::after { background-color: #9747FF; }
+
+
+        .menu-item.active {
+            background-color: rgba(255, 255, 255, 0.12);
+            color: black;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #FFDD40;
+            box-shadow: 0 0 8px #FFDD40;
+            z-index: 2;
+        }
+
+        .content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 35px 40px;
+        }
+
+        .header {
+            margin-bottom: 35px;
+        }
+
+        .header h2 {
+            color: black;
+            margin-bottom: 12px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #6c757d;
+            line-height: 1.5;
+            font-size: 16px;
+        }
+
+        .dashboard-card {
+            background-color: #FFF4DF;
+            border-radius: 12px;
+            padding: 100px;
+            margin-bottom: 50px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            border-left: 4px solid #1a4f8e;
+            margin-left: 160px;
+        }
+         .sete {
+           margin-left: 800px;
+           margin-top: -400px;
+        }
+
+        .dashboard-card h3 {
+            color: black;
+            margin-bottom: 20px;
+            font-size: 40px;
+            font-weight: 600;
+            margin-top: -50px;
+        }
+
+        .dashboard-card p {
+            color: #6c757d;
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .section-title {
+            color: black;
+            margin-bottom: 22px;
+            font-size: 22px;
+            font-weight: 600;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .action-card {
+            background-color: #FFF4DF;
+            border-radius: 12px;
+            padding: 60px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .action-card:nth-child(1) {
+            border-left: 4px solid #F88C12; /* Laranja para professores */
+        }
+
+        .action-card:nth-child(2) {
+            border-left: 4px solid #00A6FF; /* Azul para alunos */
+        }
+
+        .action-card:nth-child(3) {
+            border-left: 4px solid #59C631; /* Verde para turmas */
+        }
+
+        .action-card i {
+            font-size: 32px;
+            margin-bottom: 16px;
+            color: #6c757d;
+        }
+
+        .action-card:nth-child(1) i {
+            color: #F88C12; /* Ícone laranja para professores */
+        }
+
+        .action-card:nth-child(2) i {
+            color: #00A6FF; /* Ícone azul para alunos */
+        }
+
+        .action-card:nth-child(3) i {
+            color: #59C631; /* Ícone verde para turmas */
+        }
+        
+        .action-card h4 {
+            color: #1a4f8e;
+            margin-bottom: 14px;
+            font-size: 17px;
+            font-weight: 600;
+        }
+
+        .action-card p {
+            font-size: 34px;
+            font-weight: 800;
+            color: #2e7d32;
+            margin: 0;
+        }
+
+   
+        .texto p, .texto1 p {
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .texto p::before, .texto1 p::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+       
+        .texto p:nth-child(2)::before {
+            background-color: #00A6FF; 
+        }
+
+        .texto p:nth-child(4)::before {
+            background-color: #F88C12; 
+        }
+
+     
+        .texto1 p:nth-child(1)::before {
+            background-color: #D22A2A; 
+        }
+
+        .texto1 p:nth-child(3)::before {
+            background-color: #59C631; 
+        }
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 230px;
+            }
+            
+            .content {
+                margin-left: 230px;
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            .logo h1 {
+                font-size: 26px;
+            }
+            
+            .logo p {
+                display: none;
+            }
+            
+            .menu-item span {
+                display: none;
+            }
+            
+            .menu-item i {
+                margin-right: 0;
+                font-size: 20px;
+            }
+            
+            .menu-item::after {
+                left: 15px;
+                bottom: 0;
+            }
+            
+            .menu-item:hover::after {
+                width: 40px;
+            }
+            
+            .content {
+                margin-left: 70px;
+                padding: 20px;
+            }
+            
+            .quick-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .content {
+                margin-left: 0;
+            }
+            
+            body {
+                flex-direction: column;
+            }
+            
+            .menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+            
+            .menu-item {
+                flex: 1;
+                min-width: 120px;
+                justify-content: center;
+                padding: 12px;
+            }
+            
+            .menu-item i {
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="sidebar">
+        <div class="logo">
+           <img src="imagem/logo.png" alt="logo">
+        </div>
+        
+        <div class="menu">
+            <div class="menu-item">
+                <i class="fas fa-home"></i>
+                <span>INÍCIO</span>
+            </div>
+            <div class="menu-item active">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>PROFESSOR</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-dollar-sign"></i>
+                <span>FINANCEIRO</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>TURMAS</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-user-graduate"></i>
+                <span>MATRÍCULA</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-address-card"></i>
+                <span>CADASTRO</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="content">
+        <div class="header">
+            <h2>Olá, Usuário!</h2>
+            <p>Como podemos te ajudar?</p>
+        </div>
+
+        <div class="dashboard-card">
+            <h3>Gerencie sua creche!</h3>
+            <p>Gerencie seus professores, alunos, turmas e finanças de forma inteligente</p> <br>
+        <div class="texto" style="margin-top: 60px;"> <br>
+            <p>Cadastro e matrícula de alunos</p> <br>
+            <p>Cadastro de professor </p>
+        </div>
+        <div class="texto1" style="margin-left: 300px; margin-top: -60px;">
+            <p>Cadastro de turmas</p> <br>
+            <p>Painel financeiro </p>
+        </div>
+            <div class="sete"> 
+                <img src="imagem/sete.png" alt="sete" style="width: 350px;">
+            </div>
+        </div>
+
+        <h3 class="section-title">Ações rápidas</h3>
+        <div class="quick-actions">
+            <div class="action-card">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <h4>Professores cadastrados</h4>
+                <p>24</p>
+            </div>
+            <div class="action-card">
+                <i class="fas fa-user-graduate"></i>
+                <h4>Alunos matriculados</h4>
+                <p>156</p>
+            </div>
+            <div class="action-card">
+                <i class="fas fa-users"></i>
+                <h4>Turmas ativas</h4>
+                <p>8</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+     
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+        
+                document.querySelectorAll('.menu-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                
+                
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
