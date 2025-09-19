@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seteeduca - Sistema de Gerenciamento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: #FFF4DF;
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        .logo {
+            padding: 25px 20px;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+
+        .menu {
+            flex: 1;
+            padding: 0 18px;
+        }
+
+        .menu-item {
+            padding: 16px 20px;
+            margin-bottom: 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+            overflow: visible;
+            color: black;
+        }
+
+        .menu-item i {
+            margin-right: 15px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .menu-item span {
+            z-index: 2;
+            font-size: 15px;
+        }
+        .menu-item:hover {
+        background-color: #6c757d21;
+        }
+
+
+        .menu-item::after {
+            padding: 0 18px;
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 20px;
+            height: 2px;
+            width: 0px;
+            transition: width 0.3s ease;
+            border-radius: 1px;
+        }
+
+        .menu-item:hover::after {
+            width: calc(100% - 40px);
+        }
+
+        .menu-item:nth-child(1)::after { background-color: #F4BF27; }
+        .menu-item:nth-child(2)::after { background-color: #F88C12; }
+        .menu-item:nth-child(3)::after { background-color: #59C631; }
+        .menu-item:nth-child(4)::after { background-color: #D22A2A; }
+        .menu-item:nth-child(5)::after { background-color: #00A6FF; }
+        .menu-item:nth-child(6)::after { background-color: #9747FF; }
+
+
+        .menu-item.active {
+            background-color: rgba(255, 255, 255, 0.12);
+            color: black;
+        }
+
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #FFDD40;
+            box-shadow: 0 0 8px #FFDD40;
+            z-index: 2;
+        }
+
+         .sete {
+           margin-left: 800px;
+           margin-top: -400px;
+        }
+
+
+
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 230px;
+            }
+            
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+            }
+            
+            
+            .menu-item span {
+                display: none;
+            }
+            
+            .menu-item i {
+                margin-right: 0;
+                font-size: 20px;
+            }
+            
+            .menu-item::after {
+                left: 15px;
+                bottom: 0;
+            }
+            
+            .menu-item:hover::after {
+                width: 40px;
+            }
+            
+        
+        }
+
+        @media (max-width: 576px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+            }
+            
+            .menu-item {
+                flex: 1;
+                min-width: 120px;
+                justify-content: center;
+                padding: 12px;
+            }
+            
+            .menu-item i {
+                margin-right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="sidebar">
+        <div class="logo">
+           <img src="imagem/logo.png" alt="logo">
+        </div>
+        
+        <div class="menu">
+            <div class="menu-item">
+                <i class="fas fa-home"></i>
+                <span>INÍCIO</span>
+            </div>
+            <div class="menu-item active">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>PROFESSOR</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-dollar-sign"></i>
+                <span>FINANCEIRO</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-users"></i>
+                <span>TURMAS</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-user-graduate"></i>
+                <span>MATRÍCULA</span>
+            </div>
+            <div class="menu-item">
+                <i class="fas fa-address-card"></i>
+                <span>CADASTRO</span>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+     
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+        
+                document.querySelectorAll('.menu-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                
+                
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
